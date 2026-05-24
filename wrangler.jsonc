@@ -1,7 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "bonaire-cruise-excursions",
-  "compatibility_date": "2026-05-23",
+  "name": "dominica-shore-excursions",
+  "compatibility_date": "2026-05-24",
   "observability": {
     "enabled": true
   },

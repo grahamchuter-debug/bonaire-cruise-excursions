@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://bonairecruiseexcursions.com/sitemap.xml
+Sitemap: https://dominicashoreexcursions.com/sitemap.xml
