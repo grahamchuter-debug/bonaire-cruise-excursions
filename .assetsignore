@@ -1,0 +1,8 @@
+node_modules/
+.git/
+.tools/
+.wrangler/
+package.json
+package-lock.json
+deploy.sh
+wrangler.jsonc
