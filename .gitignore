@@ -2,3 +2,4 @@ node_modules/
 .tools/
 .wrangler/
 .dev.vars
+.DS_Store
