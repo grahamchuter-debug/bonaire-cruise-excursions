@@ -175,15 +175,15 @@ def home_body() -> str:
 {faq_section(FAQ_HOME, heading="Bonaire cruise excursion questions")}
 
 {editorial_cta(
-    "Ready to choose a direction?",
-    "Compare island sightseeing, Klein Bonaire, and easier town options — then read the port guide for pier logistics.",
-    "/best-bonaire-shore-excursions",
-    "Compare Bonaire shore excursions",
+    "Ready to request the island sightseeing tour?",
+    "Request Bonaire Island Sightseeing Tour online — payment creates a booking request; confirmation follows separately.",
+    "/book/bonaire-island-sightseeing-tour",
+    "Request island sightseeing tour",
 )}
 
 {related_links([
-    ("/bonaire-island-tour", "Island tour"),
-    ("/klein-bonaire-snorkeling", "Klein Bonaire"),
+    ("/bonaire-island-tour", "Island tour guide"),
+    ("/best-bonaire-shore-excursions", "Compare options"),
     ("/bonaire-cruise-port-guide", "Port guide"),
     ("/contact", "Contact"),
 ])}
@@ -271,10 +271,10 @@ def island_tour_body() -> str:
 {faq_section(FAQ_ISLAND, heading="Island tour questions")}
 
 {editorial_cta(
-    "Explore Bonaire island tours",
-    "Use this guide to brief your group, then compare other port-day categories if island sightseeing is not the right fit.",
-    "/best-bonaire-shore-excursions",
-    "Compare shore excursion types",
+    "Request Bonaire Island Sightseeing Tour",
+    "Pay securely to send a booking request. Confirmation is emailed separately after we arrange your places. Free cancellation outside 14 days before your excursion.",
+    "/book/bonaire-island-sightseeing-tour",
+    "Request this tour",
 )}
 
 {related_links([
@@ -481,14 +481,14 @@ def best_body() -> str:
 </section>
 
 {editorial_cta(
-    "Deepen the island-tour path",
-    "If sightseeing is your lead choice, read the flagship island-tour guide next — including honest flamingo sanctuary context.",
-    "/bonaire-island-tour",
-    "Explore Bonaire island tours",
+    "Request the island sightseeing tour",
+    "If land sightseeing is your lead choice, request Bonaire Island Sightseeing Tour — or keep reading the editorial island-tour guide first.",
+    "/book/bonaire-island-sightseeing-tour",
+    "Request island sightseeing tour",
 )}
 
 {related_links([
-    ("/bonaire-island-tour", "Island tour"),
+    ("/bonaire-island-tour", "Island tour guide"),
     ("/klein-bonaire-snorkeling", "Klein"),
     ("/bonaire-cruise-port-guide", "Port"),
     ("/", "Home"),
@@ -503,7 +503,7 @@ def contact_body() -> str:
     <h2 class="text-3xl font-display font-bold text-gray-900 mb-4">Contact</h2>
     <p class="text-gray-600 leading-relaxed mb-6">Editorial questions about this Bonaire cruise planning guide can be sent to:</p>
     <p class="text-lg font-semibold text-ocean-700 mb-8"><a href="mailto:{EMAIL}" class="hover:underline">{EMAIL}</a></p>
-    <p class="text-sm text-gray-500 leading-relaxed mb-4">We do not take live bookings on this site in the current phase. We cannot guarantee excursion availability, wildlife sightings, or ship return timing.</p>
+    <p class="text-sm text-gray-500 leading-relaxed mb-4">You can request Bonaire Island Sightseeing Tour online at <a href="/book/bonaire-island-sightseeing-tour" class="text-ocean-600 underline">/book/bonaire-island-sightseeing-tour</a>. Payment creates a booking request — confirmation is emailed separately.</p>
     <p class="text-sm text-gray-500 leading-relaxed">For urgent ship-day issues, contact your cruise line guest services or your tour operator directly.</p>
   </div>
 </section>

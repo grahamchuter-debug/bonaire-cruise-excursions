@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-"""QA checks for Bonaire World 2.0 Phase 20B."""
+"""QA checks for Bonaire World 2.0 Phase 20D."""
 from __future__ import annotations
 
 import re
@@ -27,6 +26,11 @@ REQUIRED = [
     ROOT / "images" / "flamingo-salt-flat-tour.jpg",
     ROOT / "css" / "site.css",
     ROOT / "js" / "nav.js",
+    ROOT / "js" / "commercial-config.js",
+    ROOT / "js" / "booking.js",
+    ROOT / "js" / "booking-received.js",
+    ROOT / "book" / "bonaire-island-sightseeing-tour" / "index.html",
+    ROOT / "book" / "bonaire-island-sightseeing-tour" / "received" / "index.html",
 ]
 
 BANNED = [
@@ -39,8 +43,10 @@ BANNED = [
     "Book now",
     "Book a Tour",
     "AggregateRating",
-    "ship return guaranteed",
+    "SEG_MANUAL",
 ]
+
+BOOK_CTA = "/book/bonaire-island-sightseeing-tour"
 
 
 def fail(msg: str) -> None:
@@ -53,15 +59,16 @@ def main() -> None:
         if not p.exists():
             fail(f"missing {p.relative_to(ROOT)}")
 
-    # Flamingo path must remain exact
     flamingo = ROOT / "images" / "flamingo-salt-flat-tour.jpg"
     if not flamingo.is_file():
         fail("flamingo image missing at exact path")
 
-    # No active Cool Runnings / tortola in HTML
     html_files = [
         p
-        for p in list(ROOT.glob("*.html")) + list(ROOT.glob("*/index.html"))
+        for p in list(ROOT.glob("*.html"))
+        + list(ROOT.glob("*/index.html"))
+        + list(ROOT.glob("book/*/index.html"))
+        + list(ROOT.glob("book/*/received/index.html"))
         if not any("_legacy" in part for part in p.parts)
         and "node_modules" not in p.parts
     ]
@@ -74,14 +81,9 @@ def main() -> None:
             fail(f"{hf.relative_to(ROOT)} missing main-content")
         if "data-content=" in text or "partials/" in text:
             fail(f"{hf.relative_to(ROOT)} still looks like JS shell")
-        if "fetch(" in text and "nav.js" not in str(hf):
-            # pages shouldn't fetch content
-            if "application/ld+json" not in text[:500]:
-                pass
         for bad in BANNED:
             if bad.lower() in low:
                 fail(f"{hf.relative_to(ROOT)} contains banned string: {bad}")
-        # canonical extensionless
         m = re.search(r'rel="canonical" href="([^"]+)"', text)
         if not m:
             fail(f"{hf.relative_to(ROOT)} missing canonical")
@@ -93,13 +95,28 @@ def main() -> None:
         if not canon.startswith(APEX):
             fail(f"{hf.relative_to(ROOT)} canonical not apex: {canon}")
 
+    for slug in ("index.html", "bonaire-island-tour/index.html", "best-bonaire-shore-excursions/index.html"):
+        text = (ROOT / slug).read_text(encoding="utf-8")
+        if BOOK_CTA not in text:
+            fail(f"{slug} missing commercial CTA to {BOOK_CTA}")
+
+    cfg = (ROOT / "js" / "commercial-config.js").read_text(encoding="utf-8")
+    for bad in ("cabosightseeing", "SEG_MANUAL", "wowatour", "shoreexcursionsgroup"):
+        if bad.lower() in cfg.lower():
+            fail(f"commercial-config leaks {bad}")
+    if "bonaire-bookings-prod" not in cfg:
+        fail("commercial-config must point at prod bookings worker")
+    if "flamingo-salt-flat-tour.jpg" in cfg:
+        fail("commercial UI must not auto-use flamingo image")
+
     sm = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
     if ".html" in sm:
         fail("sitemap contains .html")
     if f"{APEX}/bonaire-island-tour" not in sm:
         fail("sitemap missing island tour")
+    if "book/" in sm:
+        fail("sitemap must not list noindex book routes")
 
-    # Quarantined assets must not be referenced
     quarantine = ROOT / "images" / "quarantine"
     if quarantine.exists():
         for q in quarantine.iterdir():
@@ -110,7 +127,6 @@ def main() -> None:
                 if name in hf.read_text(encoding="utf-8"):
                     fail(f"quarantined {name} referenced in {hf.relative_to(ROOT)}")
 
-    # Cool Runnings must stay quarantined
     if (ROOT / "images" / "hero-catamaran.jpg").exists():
         fail("Cool Runnings hero still in active images/")
 

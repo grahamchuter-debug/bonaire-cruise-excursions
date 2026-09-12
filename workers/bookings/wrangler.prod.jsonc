@@ -1,0 +1,32 @@
+{
+  "$schema": "../../node_modules/wrangler/config-schema.json",
+  "name": "bonaire-bookings-prod",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "bonaire-bookings-prod",
+      "database_id": "d1e8536b-5027-4dac-8334-9f256cf558a6",
+      "migrations_dir": "migrations"
+    }
+  ],
+  "vars": {
+    "PAYMENTS_MODE": "live",
+    "BOOKINGS_ENABLED": "true",
+    "EMAIL_SENDING_ENABLED": "true",
+    "LIVE_PAYMENTS_UNLOCK": "BONAIRE_LIVE_UNLOCK",
+    "EMAIL_FROM": "bookings@notifications.wowatour.com",
+    "EMAIL_FROM_NAME": "Bonaire Cruise Excursions",
+    "EMAIL_REPLY_TO": "hello@bonairecruiseexcursions.com",
+    "CORS_ALLOWED_ORIGINS": "https://bonairecruiseexcursions.com,https://www.bonairecruiseexcursions.com",
+    "SITE_BASE_URL": "https://bonairecruiseexcursions.com",
+    "ORIGINATING_SITE": "bonairecruiseexcursions.com",
+    "ORIGINATING_PORT": "Kralendijk, Bonaire",
+    "OPERATOR_PORTAL_BASE_URL": "https://bonaire-bookings-prod.dark-violet-8d91.workers.dev"
+  }
+}

@@ -48,12 +48,20 @@ export default {
 
     const is404Doc = rawLower === '/404.html';
 
-    // Block public leakage of legacy fragment paths
+    // Block public leakage of legacy fragment paths and booking engine internals
     if (
       rawLower.startsWith('/content/') ||
       rawLower.startsWith('/partials/') ||
+      rawLower.startsWith('/shared/') ||
+      rawLower.startsWith('/workers/') ||
+      rawLower.startsWith('/scripts/') ||
+      rawLower.startsWith('/node_modules/') ||
       rawLower === '/content' ||
-      rawLower === '/partials'
+      rawLower === '/partials' ||
+      rawLower === '/shared' ||
+      rawLower === '/workers' ||
+      rawLower === '/scripts' ||
+      rawLower === '/node_modules'
     ) {
       const notFound = await env.ASSETS.fetch(new URL('/404.html', url.origin));
       return new Response(notFound.body, {
