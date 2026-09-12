@@ -1,0 +1,9 @@
+node_modules
+.tools
+.wrangler
+.git
+.gitignore
+package.json
+package-lock.json
+wrangler.jsonc
+deploy.sh

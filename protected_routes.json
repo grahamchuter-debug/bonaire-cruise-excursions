@@ -1,0 +1,57 @@
+{
+  "domain": "bonairecruiseexcursions.com",
+  "apex": "https://bonairecruiseexcursions.com",
+  "phase": "20B",
+  "routes": [
+    {
+      "path": "/",
+      "file": "index.html",
+      "kind": "home"
+    },
+    {
+      "path": "/bonaire-island-tour",
+      "file": "bonaire-island-tour/index.html",
+      "kind": "flagship"
+    },
+    {
+      "path": "/klein-bonaire-snorkeling",
+      "file": "klein-bonaire-snorkeling/index.html",
+      "kind": "attraction"
+    },
+    {
+      "path": "/bonaire-cruise-port-guide",
+      "file": "bonaire-cruise-port-guide/index.html",
+      "kind": "guide"
+    },
+    {
+      "path": "/best-bonaire-shore-excursions",
+      "file": "best-bonaire-shore-excursions/index.html",
+      "kind": "hub"
+    },
+    {
+      "path": "/contact",
+      "file": "contact/index.html",
+      "kind": "trust"
+    },
+    {
+      "path": "/about",
+      "file": "about/index.html",
+      "kind": "trust"
+    },
+    {
+      "path": "/privacy",
+      "file": "privacy/index.html",
+      "kind": "trust"
+    },
+    {
+      "path": "/terms",
+      "file": "terms/index.html",
+      "kind": "trust"
+    },
+    {
+      "path": "/methodology",
+      "file": "methodology/index.html",
+      "kind": "trust"
+    }
+  ]
+}
