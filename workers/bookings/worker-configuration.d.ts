@@ -21,6 +21,8 @@ interface __BaseEnv_Env {
 	OPERATOR_TEST_TOKEN: string;
 	OPERATOR_TOKEN?: string;
 	RESEND_API_KEY?: string;
+	/** Shared with world-booking-webhook gateway for internal event handoff. */
+	GATEWAY_HANDOFF_TOKEN?: string;
 }
 declare namespace Cloudflare {
 	interface GlobalProps {

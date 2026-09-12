@@ -232,3 +232,28 @@ test("commercial-config has no internal codes", () => {
   const text = readFileSync(join(ROOT, "js/commercial-config.js"), "utf8");
   assert.doesNotMatch(text, /cabosightseeing|SEG_MANUAL|\bSEG\b|info@wowatour/);
 });
+
+test("checkout metadata includes shared gateway routing fields", () => {
+  const src = readFileSync(join(ROOT, "workers/bookings/src/routes/checkout.ts"), "utf8");
+  assert.match(src, /world_version:\s*"2"/);
+  assert.match(src, /booking_reference:/);
+  assert.match(src, /booking_worker:/);
+  assert.match(src, /environment:/);
+});
+
+test("internal stripe-event route rejects missing bearer token", async () => {
+  const res = await worker.fetch(
+    new Request("http://bookings.test/api/internal/stripe-event", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        event_id: "evt_test",
+        event_type: "checkout.session.completed",
+        destination: "bonaire",
+        environment: "test",
+      }),
+    }),
+    previewEnv,
+  );
+  assert.equal(res.status, 401);
+});
