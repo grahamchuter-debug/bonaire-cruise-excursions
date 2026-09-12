@@ -10,7 +10,7 @@ window.BON_COMMERCIAL = {
   bookingsApiUrl: "https://bonaire-bookings-prod.dark-violet-8d91.workers.dev",
   email: "hello@bonairecruiseexcursions.com",
   siteName: "Bonaire Cruise Excursions",
-  defaultPublicBookingStatus: "BOOKING_ENABLED",
+  defaultPublicBookingStatus: "PRODUCTION_READY_LOCKED",
   cancellation:
     "Free cancellation outside 14 days before your excursion. From the 14th day before your excursion, bookings are non-refundable.",
   paymentNotConfirmation:
@@ -36,7 +36,7 @@ window.BON_COMMERCIAL = {
       guestModel: "adult_child_infant",
       durationLabel: "3 hours",
       maxGuests: 10,
-      publicBookingStatus: "BOOKING_ENABLED",
+      publicBookingStatus: "PRODUCTION_READY_LOCKED",
       displayPrice: "Adults age 12+ $129 · Children age 6–11 $109 · Children age 0–5 free",
     },
   },
