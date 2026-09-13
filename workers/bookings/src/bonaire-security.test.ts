@@ -78,7 +78,7 @@ test("live checkout allowed when code flag, unlock phrase, and live secrets pres
       LIVE_PAYMENTS_UNLOCK: "BONAIRE_LIVE_UNLOCK",
       BOOKINGS_ENABLED: "true",
       STRIPE_SECRET_KEY: "sk_live_fake",
-      STRIPE_WEBHOOK_SECRET: "whsec_fake",
+      GATEWAY_HANDOFF_TOKEN: "handoff_fake",
       SITE_BASE_URL: "https://bonairecruiseexcursions.com",
       DB: {} as D1Database,
     },

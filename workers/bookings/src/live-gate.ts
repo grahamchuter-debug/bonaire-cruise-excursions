@@ -25,7 +25,7 @@ export function liveReadinessGaps(
     LIVE_PAYMENTS_UNLOCK?: string;
     BOOKINGS_ENABLED?: string;
     STRIPE_SECRET_KEY?: string;
-    STRIPE_WEBHOOK_SECRET?: string;
+    GATEWAY_HANDOFF_TOKEN?: string;
     SITE_BASE_URL?: string;
     DB?: D1Database;
   },
@@ -39,7 +39,8 @@ export function liveReadinessGaps(
   if (!env.DB) gaps.push("d1_binding");
   const secret = typeof env.STRIPE_SECRET_KEY === "string" ? env.STRIPE_SECRET_KEY.trim() : "";
   if (!secret.startsWith("sk_live_")) gaps.push("stripe_live_secret");
-  if (!env.STRIPE_WEBHOOK_SECRET?.trim()) gaps.push("webhook_secret");
+  // Shared World 2.0 gateway verifies Stripe signatures; destination needs handoff auth.
+  if (!env.GATEWAY_HANDOFF_TOKEN?.trim()) gaps.push("gateway_handoff_token");
   if (!(env.SITE_BASE_URL || "").includes("bonairecruiseexcursions.com")) gaps.push("site_base_url");
   if (!product || supplierRoutingIsPlaceholder(product)) gaps.push("supplier_routing");
   return gaps;
@@ -51,7 +52,7 @@ export function liveCheckoutBlock(
     LIVE_PAYMENTS_UNLOCK?: string;
     BOOKINGS_ENABLED?: string;
     STRIPE_SECRET_KEY?: string;
-    STRIPE_WEBHOOK_SECRET?: string;
+    GATEWAY_HANDOFF_TOKEN?: string;
     SITE_BASE_URL?: string;
     DB?: D1Database;
   },
@@ -94,10 +95,11 @@ export function liveCheckoutBlock(
       message: "Live Checkout requires a Stripe live secret. No payment was taken.",
     };
   }
-  if (!env.STRIPE_WEBHOOK_SECRET?.trim()) {
+  if (!env.GATEWAY_HANDOFF_TOKEN?.trim()) {
     return {
-      code: "WEBHOOK_SECRET",
-      message: "Live Checkout requires STRIPE_WEBHOOK_SECRET. No payment was taken.",
+      code: "GATEWAY_HANDOFF_REQUIRED",
+      message:
+        "Live Checkout requires GATEWAY_HANDOFF_TOKEN for the shared World 2.0 webhook gateway. No payment was taken.",
     };
   }
   const site = (env.SITE_BASE_URL || "").trim();
